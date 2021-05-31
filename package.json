@@ -1,0 +1,24 @@
+{
+  "name": "notifier",
+  "version": "0.0.1",
+  "description": "Schedule based notifying system",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "notifier"
+  },
+  "author": "Arihtev",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.918.0",
+    "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "serverless-bundle": "^4.3.1",
+    "serverless-dotenv-plugin": "^3.9.0",
+    "serverless-offline": "^7.0.0"
+  }
+}
