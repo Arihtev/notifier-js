@@ -1,8 +1,18 @@
 service: notifier
+useDotenv: true
 
 provider:
   name: aws
   runtime: nodejs12.x
+  region: 'eu-west-2'
+  lambdaHashingVersion: 20201221
+
+custom:
+  serverless-offline-sns:
+    port: 4002
+    host: localhost
+    endpoint: http://localhost:4002
+    debug: false
 
 functions:
   # Users
@@ -38,7 +48,79 @@ functions:
           method: GET
           path: /users
 
+  # Services
+  create-service:
+    handler: src/functions/services/create/index.handler
+    events:
+      - http:
+          method: POST
+          path: /services/create
+
+  get-service:
+    handler: src/functions/services/get/index.handler
+    events:
+      - http:
+          method: GET
+          path: /services/{id}
+          request:
+            parameters:
+              paths:
+                id: true
+
+  list-services:
+    handler: src/functions/services/list/index.handler
+    events:
+      - http:
+          method: GET
+          path: /services
+
+  # Appointments
+  create-appointment:
+    handler: src/functions/appointments/create/index.handler
+    events:
+      - http:
+          method: POST
+          path: /appointments/create
+
+  get-appointment:
+    handler: src/functions/appointments/get/index.handler
+    events:
+      - http:
+          method: GET
+          path: /appointments/{id}
+          request:
+            parameters:
+              paths:
+                id: true
+
+  list-appointments:
+    handler: src/functions/appointments/list/index.handler
+    events:
+      - http:
+          method: GET
+          path: /appointments
+
+  # Notifications
+  scan-schedules:
+    handler: src/functions/notifications/scan-schedules/index.handler
+    events:
+      - http:
+          method: GET
+          path: /scan-schedules
+      - schedule:
+          rate: cron(0 9 * * ? *)
+          enabled: true
+
+  send-notifications:
+    handler: src/functions/notifications/send/index.handler
+    events:
+      - sns: notifications-topic
+
+  # DEMO purposes only
+  demo-notification:
+    handler: src/functions/notifications/demo/index.handler
+
 plugins:
-  # - serverless-offline-sns
+  - serverless-offline-sns
   - serverless-dotenv-plugin
   - serverless-offline

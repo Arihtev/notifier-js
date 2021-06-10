@@ -4,7 +4,7 @@
   "description": "Schedule based notifying system",
   "main": "index.js",
   "scripts": {
-    "start:dev": "sls offline start",
+    "start": "sls offline start",
     "test": "jest"
   },
   "repository": {
