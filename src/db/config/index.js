@@ -1,6 +1,12 @@
 const Knex = require('knex');
 const { camelToSnake } = require('../../utils/convertors');
 const camelize = require('camelize');
+const { types } = require('pg');
+
+const DATE_OID = 1082;
+const parseDate = (value) => value;
+
+types.setTypeParser(DATE_OID, parseDate);
 
 const db = Knex({
   client: 'pg',
