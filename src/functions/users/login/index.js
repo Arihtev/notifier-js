@@ -9,7 +9,7 @@ const { authenticate } = require('../../../providers/users');
 const { Ok } = require('../../../utils/responses');
 
 const handler = middy(async (event) => {
-  const userData = validateSchema(event)(schema);
+  const { body: userData } = validateSchema(event)(schema);
     
   const token = await authenticate(userData)(conn);
   
