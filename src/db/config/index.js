@@ -1,5 +1,5 @@
 const Knex = require('knex');
-const { camelToSnake } = require('../../utils/case-convertors');
+const { camelToSnake } = require('../../utils/convertors');
 const camelize = require('camelize');
 
 const db = Knex({

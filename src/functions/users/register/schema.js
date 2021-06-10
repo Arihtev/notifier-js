@@ -5,7 +5,7 @@ const schema = Joi.object({
   lastName: Joi.string().required(),
   phone: Joi.string().required(),
   email: Joi.string().email().required(),
-  // role: Joi.string().valid('admin', 'owner', 'customer')
+  password: Joi.string().min(8).required(),
 });
 
 module.exports = schema;

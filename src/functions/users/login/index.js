@@ -1,15 +1,19 @@
 const middy = require('@middy/core');
 const httpJsonBodyParser = require('@middy/http-json-body-parser');
-// const httpErrors = require('http-errors');
 const httpErrorHandler = require('@middy/http-error-handler');
-const { list } = require('../../../providers/users');
+
+const schema = require('./schema');
 const conn = require('../../../db/config');
+const { validateSchema } = require('../../../utils/validators/index');
+const { authenticate } = require('../../../providers/users');
 const { Ok } = require('../../../utils/responses');
 
-const handler = middy(async () => {  
-  const users = await list()(conn);
-
-  return Ok(users);
+const handler = middy(async (event) => {
+  const userData = validateSchema(event)(schema);
+    
+  const token = await authenticate(userData)(conn);
+  
+  return Ok(token);
 });
 
 handler.use([httpJsonBodyParser(), httpErrorHandler()]);

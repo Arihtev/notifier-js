@@ -6,12 +6,19 @@ provider:
 
 functions:
   # Users
-  create-user:
-    handler: src/functions/users/create/index.handler
+  register:
+    handler: src/functions/users/register/index.handler
     events:
       - http:
           method: POST
-          path: /users/create
+          path: /users/register
+
+  login:
+    handler: src/functions/users/login/index.handler
+    events:
+      - http:
+          method: POST
+          path: /users/login
 
   get-user:
     handler: src/functions/users/get/index.handler
