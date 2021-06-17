@@ -27,9 +27,11 @@
     "sequelize": "^6.6.2"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.23",
     "eslint": "^7.27.0",
     "eslint-plugin-jest": "^24.3.6",
-    "serverless-bundle": "^4.3.1",
+    "jest": "^27.0.4",
+    "serverless": "^2.46.0",
     "serverless-dotenv-plugin": "^3.9.0",
     "serverless-offline": "^7.0.0",
     "serverless-offline-sns": "^0.68.0"
