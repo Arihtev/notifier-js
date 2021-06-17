@@ -6,11 +6,11 @@ const get = (id) => async (knex) => {
   if (isNaN(id)) {
     throw httpErrors.NotFound();
   }
-  const user = await knex('appointments').select('*').where('appointments.id', id).first();
-  if (!user) {
+  const appointment = await knex('appointments').select('*').where('appointments.id', id).first();
+  if (!appointment) {
     throw httpErrors.NotFound();
   }
-  return user;
+  return appointment;
 };
 
 const create = ({ userId, serviceId, date, startTime, endTime }) => async (knex) => {
@@ -34,26 +34,26 @@ const create = ({ userId, serviceId, date, startTime, endTime }) => async (knex)
 
 // TO DO: trim user data
 const list = (opts) => async (knex) => {
-  return await knex('appointments')
+  const query = knex('appointments')
     .column('appointments.*')
     .column(knex.raw('to_jsonb(users) as user'))
     .column(knex.raw('to_jsonb(services) as service'))
     .leftJoin('users', 'appointments.user_id', 'users.id')
-    .leftJoin('services', 'appointments.service_id', 'services.id')
-    .modify(qb => {
-      if (opts && opts.userId) {
-        qb.where({ userId: opts.userId });
-      }
+    .leftJoin('services', 'appointments.service_id', 'services.id');
 
-      if (opts && opts.serviceId) {
-        qb.where({ serviceId: opts.serviceId });
-      }
+  if (opts && opts.userId) {
+    query.where({ userId: opts.userId });
+  }
 
-      if (opts && opts.date) {
-        qb.where({ date: opts.date });
-      }
-    })
-    .orderBy('appointments.id');
+  if (opts && opts.serviceId) {
+    query.where({ serviceId: opts.serviceId });
+  }
+
+  if (opts && opts.date) {
+    query.where({ date: opts.date });
+  }
+
+  return await query.orderBy('appointments.id');
 };
 
 module.exports = { get, create, list };

@@ -12,7 +12,7 @@ const { Created } = require('../../../utils/responses');
 const handler = middy(async (event) => {
   const userId = event.auth.payload.id;
   const { body: appointmentData } = validateSchema(event)(schema);
-    
+
   const appointment = await create({ userId, ...appointmentData })(conn);
   
   return Created(appointment);

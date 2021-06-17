@@ -1,9 +1,8 @@
 const middy = require('@middy/core');
-const httpJsonBodyParser = require('@middy/http-json-body-parser');
 const httpErrorHandler = require('@middy/http-error-handler');
 
 const conn = require('../../../db/config');
-const { get } = require('../../../providers/appointment');
+const { get } = require('../../../providers/appointments');
 const { Ok } = require('../../../utils/responses');
 
 const handler = middy(async event => {
@@ -13,6 +12,6 @@ const handler = middy(async event => {
   return Ok(appointment);
 });
 
-handler.use([httpJsonBodyParser(), httpErrorHandler()]);
+handler.use([httpErrorHandler()]);
 
 module.exports = { handler };

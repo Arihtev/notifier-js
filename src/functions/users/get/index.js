@@ -1,5 +1,4 @@
 const middy = require('@middy/core');
-const httpJsonBodyParser = require('@middy/http-json-body-parser');
 const httpErrorHandler = require('@middy/http-error-handler');
 
 
@@ -15,6 +14,6 @@ const handler = middy(async event => {
   return Ok(user);
 });
 
-handler.use([authMiddleware(), httpJsonBodyParser(), httpErrorHandler()]);
+handler.use([authMiddleware(), httpErrorHandler()]);
 
 module.exports = { handler };

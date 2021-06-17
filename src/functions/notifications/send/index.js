@@ -1,5 +1,5 @@
 const { SNS, SES, Lambda } = require('aws-sdk');
-const notifier = require('./utils');
+const { notifier } = require('./utils');
 
 const parseRecord = ({ Sns: { Message } }) => JSON.parse(Message);
 

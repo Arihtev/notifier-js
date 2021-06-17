@@ -39,19 +39,19 @@ const create = ({ firstName, lastName, phone, email, password }) => async (knex)
 };
 
 const authenticate = ({ email, password }) => async (knex) => {
-  return await knex.transaction(async trx => {
-    const user = await trx('users')
-      .select('*')
-      .where('users.email', email)
-      .first();
+  // return await knex.transaction(async trx => {
+  const user = await knex('users')
+    .select('*')
+    .where('users.email', email)
+    .first();
 
-    if (!validatePassword(password, user.pwhash, user.pwsalt)) {
-      throw new httpErrors.UnprocessableEntity('Wrong username or password!');
-    }
+  if (!user || !validatePassword(password, user.pwhash, user.pwsalt)) {
+    throw new httpErrors.UnprocessableEntity('Wrong username or password!');
+  }
 
-    const token = signToken(user);
-    return token;
-  });
+  const token = signToken(user);
+  return token;
+  // });
 };
 
 const list = () => async (knex) => {

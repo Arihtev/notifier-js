@@ -6,11 +6,11 @@ const get = (id) => async (knex) => {
   if (isNaN(id)) {
     throw httpErrors.NotFound();
   }
-  const user = await knex('services').select('*').where('services.id', id).first();
-  if (!user) {
+  const service = await knex('services').select('*').where('services.id', id).first();
+  if (!service) {
     throw httpErrors.NotFound();
   }
-  return user;
+  return service;
 };
 
 const create = ({ ownerId, name, address, phone, email }) => async (knex) => {

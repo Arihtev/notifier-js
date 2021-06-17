@@ -10,4 +10,4 @@ const notifier = appointment => async (sns, ses, lambda) => {
   return await Promise.all(promises);
 };
 
-module.exports = notifier;
+module.exports = { notifier };
