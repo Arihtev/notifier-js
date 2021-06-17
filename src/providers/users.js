@@ -39,7 +39,6 @@ const create = ({ firstName, lastName, phone, email, password }) => async (knex)
 };
 
 const authenticate = ({ email, password }) => async (knex) => {
-  // return await knex.transaction(async trx => {
   const user = await knex('users')
     .select('*')
     .where('users.email', email)
@@ -51,7 +50,6 @@ const authenticate = ({ email, password }) => async (knex) => {
 
   const token = signToken(user);
   return token;
-  // });
 };
 
 const list = () => async (knex) => {
