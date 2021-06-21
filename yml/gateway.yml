@@ -1,0 +1,6 @@
+Resources:
+  ApiGatewayRestApi:
+    Type: 'AWS::ApiGateway::RestApi'
+    Properties:
+      Name: ${self:provider.stackName}-root-api
+      EndpointConfiguration: { Types: ['REGIONAL'] }

@@ -11,7 +11,7 @@ const { Created } = require('../../../utils/responses');
 
 const handler = middy(async (event) => {
   const ownerId = event.auth.payload.id;
-  const serviceData = validateSchema(event)(schema);
+  const { body: serviceData } = validateSchema(event)(schema);
     
   const service = await create({ ownerId, ...serviceData })(conn);
   

@@ -1,0 +1,103 @@
+register:
+  handler: src/functions/users/register/index.handler
+  events:
+    - http:
+        method: POST
+        path: /users/register
+
+login:
+  handler: src/functions/users/login/index.handler
+  events:
+    - http:
+        method: POST
+        path: /users/login
+
+get-user:
+  handler: src/functions/users/get/index.handler
+  events:
+    - http:
+        method: GET
+        path: /users/{id}
+        request:
+          parameters:
+            paths:
+              id: true
+
+list-users:
+  handler: src/functions/users/list/index.handler
+  events:
+    - http:
+        method: GET
+        path: /users
+
+# Services
+create-service:
+  handler: src/functions/services/create/index.handler
+  events:
+    - http:
+        method: POST
+        path: /services/create
+
+get-service:
+  handler: src/functions/services/get/index.handler
+  events:
+    - http:
+        method: GET
+        path: /services/{id}
+        request:
+          parameters:
+            paths:
+              id: true
+
+list-services:
+  handler: src/functions/services/list/index.handler
+  events:
+    - http:
+        method: GET
+        path: /services
+
+# Appointments
+create-appointment:
+  handler: src/functions/appointments/create/index.handler
+  events:
+    - http:
+        method: POST
+        path: /appointments/create
+
+get-appointment:
+  handler: src/functions/appointments/get/index.handler
+  events:
+    - http:
+        method: GET
+        path: /appointments/{id}
+        request:
+          parameters:
+            paths:
+              id: true
+
+list-appointments:
+  handler: src/functions/appointments/list/index.handler
+  events:
+    - http:
+        method: GET
+        path: /appointments
+
+Notifications
+scan-schedules:
+  handler: src/functions/notifications/scan-schedules/index.handler
+  events:
+    - http:
+        method: GET
+        path: /scan-schedules
+    - schedule:
+        rate: cron(0 9 * * ? *)
+        enabled: true
+
+send-notifications:
+  handler: src/functions/notifications/send/index.handler
+  events:
+    - sns: notifications-topic
+
+DEMO purposes only
+demo-notification:
+  handler: src/functions/notifications/demo/index.handler
