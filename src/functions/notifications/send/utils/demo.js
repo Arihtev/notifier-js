@@ -5,7 +5,7 @@ const constructMessage = (startTime, user, service) => {
 const lambdaInvocation = ({ startTime, user, service }) => async lambda => {
   const params = {
     InvocationType: 'Event',
-    FunctionName: 'notifier-dev-demo-notification',
+    FunctionName: 'notifier-backend-dev-demo-notification',
     Payload: JSON.stringify({ message: constructMessage(startTime, user, service) }),
   };
   return await lambda

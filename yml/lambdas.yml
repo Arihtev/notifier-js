@@ -82,7 +82,7 @@ list-appointments:
         method: GET
         path: /appointments
 
-Notifications
+# Notifications
 scan-schedules:
   handler: src/functions/notifications/scan-schedules/index.handler
   events:
@@ -98,6 +98,6 @@ send-notifications:
   events:
     - sns: notifications-topic
 
-DEMO purposes only
+# DEMO purposes only
 demo-notification:
   handler: src/functions/notifications/demo/index.handler
